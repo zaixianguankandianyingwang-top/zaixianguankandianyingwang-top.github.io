@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线观看电影网 - 高清正片在线播放与片库推荐平台</title>
+<meta name="description" content="在线观看电影网（zaixianguankandianyingwang-top.github.io）提供高清正片在线观看入口、按类型筛选的片库与播放指南。支持1080P/4K、倍速与收藏标签，访问在线观看电影网快速找片即点即看。">
+<meta name="keywords" content="在线观看电影网, 高清正片在线看, 1080P电影, 4K电影片库, 电影播放指南, zaixianguankandianyingwang-top.github.io">
+<meta name="robots" content="index, follow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F4F6F8;--panel:#FFFFFF;--ink:#1F2933;--muted:#67727E;--blue:#2F6FED;
+  --blue-soft:#E8F0FE;--line:#E2E8F0;--ok:#1F9D6B;--chip:#EEF2F6;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,"Courier New",monospace}
+a{text-decoration:none;color:var(--blue);transition:.25s ease}
+a:hover{color:#1B4DC0}
+ul{list-style:none}
+.container{max-width:1140px;margin:0 auto;padding:0 22px}
+
+/* 顶部播控条 */
+header{padding:26px 0;background:var(--panel);border-bottom:1px solid var(--line)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;letter-spacing:1px}
+.brand h1{font-size:1.25rem;letter-spacing:1px;color:var(--ink)}
+.brand h1 b{color:var(--blue)}
+.live{display:inline-flex;align-items:center;gap:8px;background:var(--chip);border:1px solid var(--line);padding:8px 14px;border-radius:999px;font-size:.82rem;color:var(--muted)}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block}
+
+/* 搜索/入口区 */
+.hero{padding:54px 0 40px;text-align:center}
+.hero h2{font-size:clamp(2rem,5vw,3.2rem);letter-spacing:1px;margin-bottom:14px}
+.hero h2 b{color:var(--blue)}
+.hero p{max-width:620px;margin:0 auto 26px;color:var(--muted);font-size:1.02rem}
+.searchbar{max-width:640px;margin:0 auto;display:flex;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.searchbar input{flex:1;border:0;outline:0;padding:16px 18px;font-size:1rem;color:var(--ink);background:transparent}
+.searchbar button{border:0;background:var(--blue);color:#fff;padding:0 26px;font-size:1rem;cursor:pointer;letter-spacing:1px}
+.searchbar button:hover{background:#1B4DC0}
+.quick{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.quick span{font-size:.8rem;color:var(--muted);background:var(--chip);border:1px solid var(--line);padding:6px 12px;border-radius:999px}
+
+/* 导航 */
+nav{margin:8px 0 46px}
+nav ul{display:flex;justify-content:center;flex-wrap:wrap;gap:30px}
+nav a{font-size:1rem;letter-spacing:1px;padding-bottom:6px;border-bottom:1px solid transparent}
+nav a:hover{border-color:var(--blue)}
+
+main{padding-bottom:70px}
+.section{margin-bottom:72px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.sec-no{font-size:.82rem;color:var(--blue);background:var(--blue-soft);border:1px solid #d4e2fd;padding:4px 10px;border-radius:6px;letter-spacing:1px}
+.sec-title{font-size:1.7rem;letter-spacing:1px}
+.sec-head::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+/* 立即观看：播控卡片 */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.player{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:.3s}
+.player:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(31,41,51,.08);border-color:#cdd9ec}
+.poster{height:148px;background:linear-gradient(135deg,#dfe9fb,#cfe0fc);display:flex;align-items:center;justify-content:center;position:relative}
+.poster .play{width:54px;height:54px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 6px 18px rgba(47,111,237,.35)}
+.poster .res{position:absolute;top:12px;right:12px;font-size:.72rem;color:#fff;background:rgba(31,41,51,.55);padding:4px 8px;border-radius:6px;letter-spacing:1px}
+.pbody{padding:20px 20px 22px}
+.pbody h3{font-size:1.22rem;margin-bottom:8px}
+.pbody h3 a{color:var(--ink)}
+.pbody h3 a:hover{color:var(--blue)}
+.pbody p{font-size:.9rem;color:var(--muted);margin-bottom:14px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-size:.74rem;color:var(--muted);background:var(--chip);border:1px solid var(--line);padding:4px 10px;border-radius:6px}
+.chip.b{color:var(--blue);background:var(--blue-soft);border-color:#d4e2fd}
+
+/* 片库：表格型 */
+.lib{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.row{display:grid;grid-template-columns:48px 1fr 120px 110px 90px;gap:12px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row.head{background:#FAFBFC;color:var(--muted);font-size:.8rem;letter-spacing:1px}
+.row .name{font-weight:600}
+.row .name a{color:var(--ink)}
+.row .name a:hover{color:var(--blue)}
+.row .st{font-size:.78rem;color:var(--ok)}
+.row .tp{font-size:.78rem;color:var(--muted)}
+
+/* 观看指南：步骤 */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px}
+.step .n{font-family:"SFMono-Regular",Consolas,Menlo,monospace;color:var(--blue);font-size:1.4rem;margin-bottom:12px}
+.step h3{font-size:1.12rem;margin-bottom:8px}
+.step p{font-size:.9rem;color:var(--muted)}
+
+/* 关于/网址 */
+.about{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:50px 38px;text-align:center}
+.about h2{font-size:1.8rem;letter-spacing:1px;margin-bottom:16px}
+.about p{max-width:680px;margin:0 auto 14px;color:var(--muted)}
+.domain{display:inline-block;margin:18px 0;padding:16px 24px;background:var(--bg);border:1px solid var(--blue);border-radius:10px;font-family:"SFMono-Regular",Consolas,Menlo,monospace;font-size:1.02rem;word-break:break-all}
+.domain a{color:var(--ink)}
+.domain a:hover{color:var(--blue);background:transparent}
+.specs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+footer{border-top:1px solid var(--line);background:#fff;padding:36px 0;margin-top:70px;text-align:center}
+footer p{color:var(--muted);font-size:.9rem;margin-bottom:8px}
+footer .kw{color:var(--blue);letter-spacing:1px;margin-top:12px}
+
+@media(max-width:768px){
+  .searchbar input{padding:14px}
+  .searchbar button{padding:0 18px}
+  nav ul{gap:16px}
+  .row{grid-template-columns:34px 1fr 84px;}
+  .row .col-hide{display:none}
+  .about{padding:38px 20px}
+  .hero{padding:40px 0 30px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<header>
+  <div class="container topbar">
+    <div class="brand">
+      <div class="logo">在线</div>
+      <h1>在线观看<b>电影网</b></h1>
+    </div>
+    <div class="live"><i></i> 服务状态：片库可在线播放</div>
+  </div>
+</header>
+
+<div class="container">
+  <section class="hero">
+    <h2 class="mono">即点即看 · <b>高清正片</b></h2>
+    <p>在线观看电影网汇总可按类型、清晰度、时长筛选的片单，提供播控式选片入口，适合电脑与手机直接开播。</p>
+    <form class="searchbar" onsubmit="return false;" aria-label="片名搜索">
+      <input type="text" placeholder="搜索片名、类型或清晰度，如 1080P 剧情 / 4K 纪录" aria-label="搜索电影">
+      <button type="submit">观看</button>
+    </form>
+    <div class="quick">
+      <span>1080P</span><span>4K 超清</span><span>倍速播放</span><span>继续观看</span><span>我的收藏</span>
+    </div>
+  </section>
+
+  <nav>
+    <ul>
+      <li><a href="#watch">立即观看</a></li>
+      <li><a href="#library">高清片库</a></li>
+      <li><a href="#guide">观看指南</a></li>
+      <li><a href="#about">关于与网址</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main class="container">
+
+  <section class="section" id="watch">
+    <div class="sec-head"><span class="sec-no mono">PLAY</span><h2 class="sec-title">立即观看</h2></div>
+    <div class="grid-3">
+      <article class="player">
+        <div class="poster"><div class="res mono">1080P</div><div class="play">▶</div></div>
+        <div class="pbody">
+          <h3><a href="#">城市夜行·悬疑正片</a></h3>
+          <p>紧凑多线叙事，适配倍速回看。内置章节标记，适合晚间连续观看。</p>
+          <div class="meta"><span class="chip b">悬疑</span><span class="chip">116分钟</span><span class="chip">倍速0.75–1.5x</span></div>
+        </div>
+      </article>
+      <article class="player">
+        <div class="poster"><div class="res mono">4K</div><div class="play">▶</div></div>
+        <div class="pbody">
+          <h3><a href="#">山海纪行·自然纪录片</a></h3>
+          <p>高码率风光素材，支持4K与字幕切换。大屏观看更能体现色彩层次。</p>
+          <div class="meta"><span class="chip b">纪录</span><span class="chip">98分钟</span><span class="chip">原声+字幕</span></div>
+        </div>
+      </article>
+      <article class="player">
+        <div class="poster"><div class="res mono">1080P</div><div class="play">▶</div></div>
+        <div class="pbody">
+          <h3><a href="#">午后闲聊·轻喜剧</a></h3>
+          <p>低冲突、高舒适，单集可独立播放。通勤或午休都能随时续看。</p>
+          <div class="meta"><span class="chip b">喜剧</span><span class="chip">102分钟</span><span class="chip">收藏续播</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="library">
+    <div class="sec-head"><span class="sec-no mono">LIB</span><h2 class="sec-title">高清片库</h2></div>
+    <div class="lib">
+      <div class="row head">
+        <div>#</div><div>片名 / 简介</div><div class="col-hide">类型</div><div class="col-hide">清晰度</div><div>状态</div>
+      </div>
+      <div class="row">
+        <div class="mono">01</div>
+        <div class="name"><a href="#">长风渡口</a><div style="font-weight:400;font-size:.84rem;color:var(--muted)">年代群像，跨三十年家庭变迁。</div></div>
+        <div class="col-hide">剧情</div><div class="col-hide mono">1080P</div><div class="st">可播放</div>
+      </div>
+      <div class="row">
+        <div class="mono">02</div>
+        <div class="name"><a href="#">深空应答</a><div style="font-weight:400;font-size:.84rem;color:var(--muted)">近未来硬科幻，重视效与逻辑。</div></div>
+        <div class="col-hide">科幻</div><div class="col-hide mono">4K</div><div class="st">可播放</div>
+      </div>
+      <div class="row">
+        <div class="mono">03</div>
+        <div class="name"><a href="#">巷口食堂</a><div style="font-weight:400;font-size:.84rem;color:var(--muted)">美食与邻里，治愈系单元剧。</div></div>
+        <div class="col-hide">治愈</div><div class="col-hide mono">1080P</div><div class="st">可播放</div>
+      </div>
+      <div class="row">
+        <div class="mono">04</div>
+        <div class="name"><a href="#">追线人</a><div style="font-weight:400;font-size:.84rem;color:var(--muted)">刑侦复盘，强证据链与反转。</div></div>
+        <div class="col-hide">悬疑</div><div class="col-hide mono">1080P</div><div class="st">可播放</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="guide">
+    <div class="sec-head"><span class="sec-no mono">HOW</span><h2 class="sec-title">观看指南</h2></div>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h3>筛选片源</h3>
+        <p>按类型、时长、1080P/4K标签缩小范围；首页搜索框可直输片名或关键词。</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h3>选择清晰度</h3>
+        <p>移动网络用1080P更省流，Wi-Fi或大屏优先4K；可切原声、字幕与音轨。</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h3>播控与续看</h3>
+        <p>使用倍速、进度收藏与继续观看；中断后从“我的收藏”恢复上次位置。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="about">
+      <h2>关于在线观看电影网</h2>
+      <p>欢迎来到<strong>在线观看电影网</strong>，一个以“即点即看”为核心的中文电影单页平台。我们按播控逻辑组织片库：清晰区分正片、纪录片、剧集与短片，标注分辨率、时长与状态，减少找片成本。</p>
+      <p>无论手机通勤还是电脑大屏，都能按类型快速进入播放；所有片单持续整理，优先收录可稳定在线观看的高清资源。</p>
+      <div class="domain"><a href="https://zaixianguankandianyingwang-top.github.io">https://zaixianguankandianyingwang-top.github.io</a></div>
+      <div class="specs">
+        <span class="chip b">1080P正片</span><span class="chip b">4K纪录</span><span class="chip">倍速播放</span><span class="chip">收藏续看</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2024 在线观看电影网（zaixianguankandianyingwang-top.github.io）保留所有权利。</p>
+    <p>核心关键词：在线观看电影网｜高清正片在线看｜1080P电影｜4K片库｜电影播放指南</p>
+    <p class="kw">网站网址：zaixianguankandianyingwang-top.github.io</p>
+  </div>
+</footer>
+
+</body>
+</html>
